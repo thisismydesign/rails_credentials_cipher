@@ -33,7 +33,7 @@ bin/rails credentials:decrypt[production]    # config/credentials/production.yml
 bin/rails credentials:encrypt[production]
 ```
 
-The key is found the same way Rails finds it: `RAILS_MASTER_KEY`, `config/master.key`, or `config/credentials/production.key` for an environment. In zsh, quote the task: `bin/rails 'credentials:decrypt[production]'`.
+In zsh, quote the task: `bin/rails 'credentials:decrypt[production]'`.
 
 ## Contributing
 

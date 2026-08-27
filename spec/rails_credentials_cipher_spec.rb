@@ -48,6 +48,32 @@ RSpec.describe RailsCredentialsCipher do
         .to include('Decrypted config/credentials/production.yml.enc to config/credentials/production.yml')
     end
 
+    it 'explains where the key goes when there is none' do
+      root.join('config/master.key').delete
+
+      expect { described_class.decrypt(out:) }.to raise_error(
+        RailsCredentialsCipher::Error,
+        'No key for config/credentials.yml.enc: set RAILS_MASTER_KEY or write it to config/master.key'
+      )
+    end
+
+    it 'explains when the key is not the right one' do
+      root.join('config/master.key').write(ActiveSupport::EncryptedFile.generate_key)
+
+      expect do
+        described_class.decrypt(out:)
+      end.to raise_error(RailsCredentialsCipher::Error, /is not the one it was encrypted with/)
+    end
+
+    it 'explains when there is nothing to decrypt' do
+      root.join('config/credentials.yml.enc').delete
+
+      expect do
+        described_class.decrypt(out:)
+      end.to raise_error(RailsCredentialsCipher::Error,
+                         'config/credentials.yml.enc does not exist')
+    end
+
     it 'falls back to the master key for an environment without its own' do
       write_credentials(root, 'env: staging', name: 'credentials/staging')
 
@@ -73,6 +99,15 @@ RSpec.describe RailsCredentialsCipher do
       described_class.encrypt(out:)
 
       expect(out.string).to eq("config/credentials.yml.enc already matches config/credentials.yml, nothing to do\n")
+    end
+
+    it 'explains where the key goes when there is none' do
+      root.join('config/credentials.yml').write('edited: true')
+      root.join('config/master.key').delete
+
+      expect do
+        described_class.encrypt(out:)
+      end.to raise_error(RailsCredentialsCipher::Error, /set RAILS_MASTER_KEY or write it to/)
     end
 
     it 'encrypts one environment' do

@@ -13,7 +13,7 @@ module RailsCredentialsCipher
     # encrypted one, and warns when that file is not ignored by git.
     def decrypt(environment: nil, out: $stdout)
       cipher = cipher(environment:)
-      cipher.decrypt
+      explaining(cipher) { cipher.decrypt }
       out.puts "Decrypted #{relative(cipher.encrypted_path)} to #{relative(cipher.plain_path)}"
       out.puts "Warning: #{relative(cipher.plain_path)} is not ignored by git" if git_tracked?(cipher.plain_path)
       cipher.plain_path
@@ -22,7 +22,7 @@ module RailsCredentialsCipher
     # Encrypts the plain file back over the application's credentials.
     def encrypt(environment: nil, out: $stdout)
       cipher = cipher(environment:)
-      if cipher.encrypt
+      if explaining(cipher) { cipher.encrypt }
         out.puts "Encrypted #{relative(cipher.plain_path)} to #{relative(cipher.encrypted_path)}"
       else
         out.puts "#{relative(cipher.encrypted_path)} already matches #{relative(cipher.plain_path)}, nothing to do"
@@ -39,6 +39,19 @@ module RailsCredentialsCipher
     end
 
     private
+
+    # Turns the encryption errors into one Error whose message says what to do.
+    def explaining(cipher)
+      yield
+    rescue ActiveSupport::EncryptedFile::MissingKeyError
+      raise Error, "No key for #{relative(cipher.encrypted_path)}: " \
+                   "set #{cipher.env_key} or write it to #{relative(cipher.key_path)}"
+    rescue ActiveSupport::MessageEncryptor::InvalidMessage
+      raise Error, "Could not decrypt #{relative(cipher.encrypted_path)}: " \
+                   "the key in #{cipher.env_key} or #{relative(cipher.key_path)} is not the one it was encrypted with"
+    rescue ActiveSupport::EncryptedFile::MissingContentError
+      raise Error, "#{relative(cipher.encrypted_path)} does not exist"
+    end
 
     def paths(environment:)
       return app_paths unless environment

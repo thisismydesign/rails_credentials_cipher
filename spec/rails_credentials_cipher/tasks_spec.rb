@@ -28,6 +28,13 @@ RSpec.describe 'credentials rake tasks' do # rubocop:disable RSpec/DescribeClass
       .to eq("from: file\n")
   end
 
+  it 'stops with the explanation instead of a stack trace' do
+    root.join('config/master.key').delete
+
+    expect { rake['credentials:decrypt'].invoke }
+      .to raise_error(SystemExit).and output(%r{set RAILS_MASTER_KEY or write it to config/master.key}).to_stderr
+  end
+
   it 'passes the environment argument through' do
     allow(RailsCredentialsCipher).to receive(:decrypt)
 

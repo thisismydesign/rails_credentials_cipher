@@ -10,6 +10,7 @@ A gem that adds `credentials:decrypt` and `credentials:encrypt` rake tasks to Ra
 - MUST keep the task names `credentials:decrypt` and `credentials:encrypt` and the generator name `rails_credentials_cipher:install`; applications call them by name from their own docs.
 - MUST keep `RailsCredentialsCipher::Cipher` free of Rails. Only the module-level methods and the Railtie MAY touch `Rails`.
 - MUST NOT print or log decrypted content; messages name paths only.
+- Every failure a user can fix MUST surface as `RailsCredentialsCipher::Error` with the fix in the message (where the key goes, what is missing); the rake tasks `abort` with it instead of showing a stack trace.
 - Specs MUST round-trip through a real `ActiveSupport::EncryptedFile` in a temporary directory, never a stub of it.
 - Specs MUST NOT depend on a Rails application; `stub_rails` in `spec/spec_helper.rb` is the whole Rails surface the gem uses, and the generator runs with `destination_root` in a temporary directory.
 - The final result MUST pass `bundle exec rspec` and `bundle exec rubocop`. MUST NOT disable a cop without the reason next to it.
