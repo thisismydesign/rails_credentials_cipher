@@ -30,6 +30,12 @@ module RailsCredentialsCipher
       cipher.encrypted_path
     end
 
+    # The environments the application defines, which is what Rails' own
+    # credentials command offers for --environment.
+    def environments
+      Dir[Rails.root.join('config/environments/*.rb').to_s].map { |file| File.basename(file, '.rb') }.sort
+    end
+
     # The cipher for the credentials the running application would use, or for
     # the given environment's `config/credentials/<environment>.yml.enc`. The key
     # falls back from `config/credentials/<environment>.key` to `config/master.key`

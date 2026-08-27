@@ -15,6 +15,15 @@ RSpec.describe RailsCredentialsCipher do
     expect(RailsCredentialsCipher::VERSION).not_to be_nil
   end
 
+  describe '.environments' do
+    it 'lists the environments the application defines' do
+      root.join('config/environments').mkpath
+      %w[test production development].each { |env| root.join("config/environments/#{env}.rb").write('') }
+
+      expect(described_class.environments).to eq(%w[development production test])
+    end
+  end
+
   describe '.decrypt' do
     it 'decrypts the credentials the application uses and says where' do
       expect(described_class.decrypt(out:)).to eq(root.join('config/credentials.yml'))

@@ -7,7 +7,7 @@ A gem that adds `credentials:decrypt` and `credentials:encrypt` rake tasks to Ra
 ## Instructions
 
 - MUST keep all encryption in `ActiveSupport::EncryptedFile`. MUST NOT reimplement the cipher: anything Rails cannot read back is a bug.
-- MUST keep the task names `credentials:decrypt` and `credentials:encrypt` and the generator name `rails_credentials_cipher:install`; applications call them by name from their own docs.
+- MUST keep the task names `credentials:decrypt`, `credentials:encrypt`, their `:<environment>` variants (one per `config/environments/*.rb`, never bracket arguments — they need quoting in zsh) and the generator name `rails_credentials_cipher:install`; applications call them by name from their own docs.
 - MUST keep `RailsCredentialsCipher::Cipher` free of Rails. Only the module-level methods and the Railtie MAY touch `Rails`.
 - MUST NOT print or log decrypted content; messages name paths only.
 - Every failure a user can fix MUST surface as `RailsCredentialsCipher::Error` with the fix in the message (where the key goes, what is missing); the rake tasks `abort` with it instead of showing a stack trace.

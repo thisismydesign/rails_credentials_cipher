@@ -26,14 +26,12 @@ bin/rails credentials:decrypt    # config/credentials.yml.enc -> config/credenti
 bin/rails credentials:encrypt    # config/credentials.yml -> config/credentials.yml.enc
 ```
 
-For per-environment credentials, pass the environment:
+For per-environment credentials, add the environment:
 
 ```sh
-bin/rails credentials:decrypt[production]    # config/credentials/production.yml.enc -> config/credentials/production.yml
-bin/rails credentials:encrypt[production]
+bin/rails credentials:decrypt:production    # config/credentials/production.yml.enc -> config/credentials/production.yml
+bin/rails credentials:encrypt:production
 ```
-
-In zsh, quote the task: `bin/rails 'credentials:decrypt[production]'`.
 
 ## Contributing
 

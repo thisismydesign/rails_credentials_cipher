@@ -53,4 +53,4 @@ A published gem with no deployment: the error, background job and data checks do
 - **CI** — `.github/workflows/ci.yml`. The test matrix MUST cover every Ruby the gemspec allows (`>= 3.3`); add a new Ruby release to the matrix when it ships. When the oldest one reaches end of life, raise `required_ruby_version`, `TargetRubyVersion` and the matrix together.
 - **Tests and lint** — see [dev-env](../dev-env/SKILL.md).
 - **Release** — compare `lib/rails_credentials_cipher/version.rb` with `gem info rails_credentials_cipher --remote`. A release is warranted when `main` has user-visible changes over the last tag.
-- **Docs** — README task table and AGENTS.md architecture section.
+- **Docs** — README usage and AGENTS.md architecture section.

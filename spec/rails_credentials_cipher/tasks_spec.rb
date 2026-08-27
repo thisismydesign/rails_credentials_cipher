@@ -8,6 +8,8 @@ RSpec.describe 'credentials rake tasks' do # rubocop:disable RSpec/DescribeClass
   before do
     encrypted_path, key_path = write_credentials(root, "from: rake\n")
     stub_rails(root, content_path: encrypted_path, key_path:)
+    root.join('config/environments').mkpath
+    %w[development production].each { |env| root.join("config/environments/#{env}.rb").write('') }
     Rake.application = rake
     Rake::TaskManager.record_task_metadata = true
     rake.define_task(Rake::Task, :environment)
@@ -17,6 +19,14 @@ RSpec.describe 'credentials rake tasks' do # rubocop:disable RSpec/DescribeClass
   it 'defines both tasks with descriptions' do
     expect(rake['credentials:decrypt'].comment).to start_with('Decrypt')
     expect(rake['credentials:encrypt'].comment).to start_with('Encrypt')
+  end
+
+  it 'defines a pair per environment the application has' do
+    names = rake.tasks.map(&:name)
+
+    expect(names).to include('credentials:decrypt:development', 'credentials:encrypt:development',
+                             'credentials:decrypt:production', 'credentials:encrypt:production')
+    expect(names).not_to include('credentials:decrypt:staging')
   end
 
   it 'decrypts and encrypts through the module' do
@@ -35,10 +45,10 @@ RSpec.describe 'credentials rake tasks' do # rubocop:disable RSpec/DescribeClass
       .to raise_error(SystemExit).and output(%r{set RAILS_MASTER_KEY or write it to config/master.key}).to_stderr
   end
 
-  it 'passes the environment argument through' do
+  it 'passes the environment through' do
     allow(RailsCredentialsCipher).to receive(:decrypt)
 
-    rake['credentials:decrypt'].invoke('production')
+    rake['credentials:decrypt:production'].invoke
 
     expect(RailsCredentialsCipher).to have_received(:decrypt).with(environment: 'production')
   end
