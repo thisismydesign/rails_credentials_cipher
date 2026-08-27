@@ -3,8 +3,6 @@ name: agents-md
 description: Write or update AGENTS.md, the technical instructions agents read before working in a repo. Use when creating or editing AGENTS.md, or after learning something an agent would need next time.
 ---
 
-<!-- cto:universal:start id=agents-md -->
-
 # AGENTS.md
 
 `AGENTS.md` is the technical brief an agent reads before touching the repo. It carries what cannot be inferred from the code in one pass: intent, conventions, and the commands that prove work is done.
@@ -40,5 +38,3 @@ Place an `AGENTS.md` in a subdirectory when its rules differ from the root and a
 - Would an agent produce wrong output without each line? Delete the rest.
 - Is any rule already enforced by a linter or test? Then delete it and rely on the check.
 - Can a section be replaced by a link to a skill?
-
-<!-- cto:universal:end -->

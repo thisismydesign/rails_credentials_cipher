@@ -3,8 +3,6 @@ name: skill
 description: Write agent skills and instructions. Use when creating or editing SKILL.md files, AGENTS.md, or any agent instruction document.
 ---
 
-<!-- cto:universal:start id=skill -->
-
 # Writing Skills & Agent Instructions
 
 ## Rules
@@ -25,5 +23,3 @@ Before finalizing, verify:
 - Can any code block be replaced with a sentence?
 - Can prose be relaced by bullet points?
 - Would the agent produce wrong output without this line?
-
-<!-- cto:universal:end -->

@@ -3,8 +3,6 @@ name: maintain
 description: Periodic health pass over this project — dependencies, security, CI, errors, runtime. Use when asked to maintain the project, do maintenance, or check its health.
 ---
 
-<!-- cto:universal:start id=maintain -->
-
 # Maintain
 
 Assess the health of the project, fix what is broken, and report honestly — including the areas that turned out to be fine. A symptom in data or logs usually has a cause in code; find the cause before patching the symptom.
@@ -41,8 +39,6 @@ Run every check that applies to this project. Skip one only if it does not exist
 ## Report
 
 Summarize per area with counts and severity, healthy areas included ("no issues"). MUST report the audit result as numbers by severity, and MUST name the command that produced them so the finding can be reproduced. End with: what was fixed, what is proposed, what needs the owner. State how long the pass took so the portfolio can record its cost.
-
-<!-- cto:universal:end -->
 
 ## Project specifics
 

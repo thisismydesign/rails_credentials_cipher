@@ -3,8 +3,6 @@ name: dev-env
 description: Set up and run the project locally — install, run, test, lint. Read this before running anything in the repo.
 ---
 
-<!-- cto:universal:start id=dev-env -->
-
 # Development Environment
 
 ## Standard
@@ -24,8 +22,6 @@ Keep each to its commands, in the project-specific section below:
 - **Test** — whole suite, single file, single test.
 - **Lint** — with auto-fix.
 - **Manual test** — URL and credentials, or the CLI invocation that proves it works.
-
-<!-- cto:universal:end -->
 
 ## Project specifics
 

@@ -3,8 +3,6 @@ name: code-review
 description: Review code changes on the current branch compared to main. Use when the user asks for a code review, wants feedback on their changes, or asks to review a branch or pull request.
 ---
 
-<!-- cto:universal:start id=code-review -->
-
 You're on a branch. Review the changes compared to main.
 
 - Review ONLY the changes introduced on the branch.
@@ -13,5 +11,3 @@ You're on a branch. Review the changes compared to main.
 - Check if anything can be removed (unnecessary, duplication, not needed to fulfill requirements).
 - Check if anything can be optimized or refactored.
 - Be concise and specific in your feedback.
-
-<!-- cto:universal:end -->

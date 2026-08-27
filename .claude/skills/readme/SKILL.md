@@ -3,8 +3,6 @@ name: readme
 description: Write or update the project README. Use when creating, reviewing, or restructuring README.md, or when a change alters what users can do with the project.
 ---
 
-<!-- cto:universal:start id=readme -->
-
 # README
 
 The README is for **users**, not contributors and not agents. Technical instructions for agents belong in `AGENTS.md`.
@@ -39,5 +37,3 @@ Sections in this order, omitting any that do not apply:
 - Can a stranger get a working result from the first screen alone?
 - Does anything here only matter to someone editing the code? Move it to `AGENTS.md`.
 - Is any command untested or any link dead?
-
-<!-- cto:universal:end -->
