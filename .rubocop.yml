@@ -1,0 +1,20 @@
+plugins:
+  - rubocop-rake
+  - rubocop-rspec
+
+AllCops:
+  # The oldest Ruby the gem supports (required_ruby_version), not the one in .tool-versions
+  TargetRubyVersion: 3.3
+  NewCops: enable
+
+# Do not enforce documentation
+Style/Documentation:
+  Enabled: false
+
+# A round trip is one behaviour with a return value, a file on disk and a message
+RSpec/MultipleExpectations:
+  Max: 3
+
+# A round trip needs its setup, the call and the check on disk
+RSpec/ExampleLength:
+  Enabled: false
