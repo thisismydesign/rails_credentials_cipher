@@ -1,6 +1,6 @@
 # RailsCredentialsCipher
 
-#### Decrypt Rails credentials into an editable file and encrypt it back.
+#### Decrypt, edit, and encrypt Rails credentials.
 
 `bin/rails credentials:edit` opens the decrypted credentials in `$EDITOR` and seals them again when the editor closes. That works at a terminal and nowhere else — not from a coding agent, an IDE, or a script. This gem adds two rake tasks that put the decrypted YAML on disk as a plain file and encrypt it again when you are done, using the same `ActiveSupport::EncryptedFile` Rails reads the credentials with.
 

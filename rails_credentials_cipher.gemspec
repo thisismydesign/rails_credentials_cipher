@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors = ['thisismydesign']
   spec.email = ['git.thisismydesign@gmail.com']
 
-  spec.summary = 'Decrypt Rails credentials into an editable file and encrypt it back.'
+  spec.summary = 'Decrypt, edit, and encrypt Rails credentials.'
   spec.homepage = 'https://github.com/thisismydesign/rails_credentials_cipher'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 3.3.0'
