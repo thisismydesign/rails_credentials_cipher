@@ -78,6 +78,8 @@ bin/rails credentials:show             # Rails reads the edit back
 
 ### Release
 
-1. Bump `lib/rails_credentials_cipher/version.rb`, run `bundle install` so `Gemfile.lock` follows, commit.
-2. Tag and push: `git tag v<version> && git push origin main v<version>`.
-3. The `Release` workflow checks the tag against the version and publishes to RubyGems through trusted publishing (`rubygems/release-gem`, `release` environment). The trusted publisher is configured once on rubygems.org for this repository.
+Bump `lib/rails_credentials_cipher/version.rb`, run `bundle install` so `Gemfile.lock` follows, commit, then:
+
+```sh
+bundle exec rake release    # tags v<version>, pushes the commits and the tag, pushes the gem to rubygems.org
+```

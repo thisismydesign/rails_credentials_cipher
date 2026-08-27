@@ -27,7 +27,6 @@ See: [dev-env](.claude/skills/dev-env/SKILL.md) for setup, test, lint, manual te
 - `lib/rails_credentials_cipher/railtie.rb` and `lib/tasks/credentials.rake` — the rake surface; one line per task, logic stays in the module.
 - `lib/generators/rails_credentials_cipher/install/install_generator.rb` — `bin/rails generate rails_credentials_cipher:install`; MUST stay idempotent.
 - `sig/rails_credentials_cipher.rbs` — MUST follow every public API change.
-- `.github/workflows/release.yml` — publishes on a `v*` tag; the tag MUST equal `VERSION`.
 
 ## Code style
 
