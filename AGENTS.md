@@ -7,11 +7,11 @@ A gem that adds `credentials:decrypt` and `credentials:encrypt` rake tasks to Ra
 ## Instructions
 
 - MUST keep all encryption in `ActiveSupport::EncryptedFile`. MUST NOT reimplement the cipher: anything Rails cannot read back is a bug.
-- MUST keep the task names `credentials:decrypt` and `credentials:encrypt`; applications call them by name from their own docs.
+- MUST keep the task names `credentials:decrypt` and `credentials:encrypt` and the generator name `rails_credentials_cipher:install`; applications call them by name from their own docs.
 - MUST keep `RailsCredentialsCipher::Cipher` free of Rails. Only the module-level methods and the Railtie MAY touch `Rails`.
 - MUST NOT print or log decrypted content; messages name paths only.
 - Specs MUST round-trip through a real `ActiveSupport::EncryptedFile` in a temporary directory, never a stub of it.
-- Specs MUST NOT depend on a Rails application; `stub_rails` in `spec/spec_helper.rb` is the whole Rails surface the gem uses.
+- Specs MUST NOT depend on a Rails application; `stub_rails` in `spec/spec_helper.rb` is the whole Rails surface the gem uses, and the generator runs with `destination_root` in a temporary directory.
 - The final result MUST pass `bundle exec rspec` and `bundle exec rubocop`. MUST NOT disable a cop without the reason next to it.
 - SHOULD record what an agent would need next time in this file or in the skill it belongs to.
 
@@ -24,6 +24,7 @@ See: [dev-env](.claude/skills/dev-env/SKILL.md) for setup, test, lint, manual te
 - `lib/rails_credentials_cipher/cipher.rb` — one encrypted file and its plain twin; `decrypt`, `encrypt`, nothing Rails-specific.
 - `lib/rails_credentials_cipher.rb` — resolves the paths from the Rails application or an environment argument, prints what happened, warns when the plain file is not git-ignored.
 - `lib/rails_credentials_cipher/railtie.rb` and `lib/tasks/credentials.rake` — the rake surface; one line per task, logic stays in the module.
+- `lib/generators/rails_credentials_cipher/install/install_generator.rb` — `bin/rails generate rails_credentials_cipher:install`; MUST stay idempotent.
 - `sig/rails_credentials_cipher.rbs` — MUST follow every public API change.
 - `.github/workflows/release.yml` — publishes on a `v*` tag; the tag MUST equal `VERSION`.
 

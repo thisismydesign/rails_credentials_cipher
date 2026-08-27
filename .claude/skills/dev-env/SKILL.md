@@ -69,6 +69,7 @@ bundle exec rubocop -A
 In a Rails application using this checkout, with its `config/master.key` present:
 
 ```sh
+bin/rails generate rails_credentials_cipher:install   # .gitignore gets the decrypted files
 bin/rails credentials:decrypt          # writes config/credentials.yml
 # edit config/credentials.yml
 bin/rails credentials:encrypt          # rewrites config/credentials.yml.enc
