@@ -18,6 +18,13 @@ Then keep the decrypted files out of git:
 bin/rails generate rails_credentials_cipher:install
 ```
 
+This adds to `.gitignore`:
+
+```gitignore
+/config/credentials.yml
+/config/credentials/*.yml
+```
+
 ## Usage
 
 ```sh
