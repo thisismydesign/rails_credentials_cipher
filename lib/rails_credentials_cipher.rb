@@ -41,7 +41,8 @@ module RailsCredentialsCipher
     # falls back from `config/credentials/<environment>.key` to `config/master.key`
     # the way Rails does; `RAILS_MASTER_KEY` wins over both.
     def cipher(environment: nil)
-      Cipher.new(**paths(environment:))
+      encrypted_path, key_path = paths(environment:)
+      Cipher.new(encrypted_path:, key_path:)
     end
 
     private
@@ -64,12 +65,12 @@ module RailsCredentialsCipher
 
       key_path = Rails.root.join("config/credentials/#{environment}.key")
       key_path = Rails.root.join('config/master.key') unless key_path.exist?
-      { encrypted_path: Rails.root.join("config/credentials/#{environment}.yml.enc"), key_path: }
+      [Rails.root.join("config/credentials/#{environment}.yml.enc"), key_path]
     end
 
     def app_paths
       config = Rails.application.config.credentials
-      { encrypted_path: Rails.root.join(config.content_path), key_path: Rails.root.join(config.key_path) }
+      [Rails.root.join(config.content_path), Rails.root.join(config.key_path)]
     end
 
     def relative(path)

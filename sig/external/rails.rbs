@@ -1,0 +1,44 @@
+# The slice of Rails and ActiveSupport this gem calls. Not shipped with the gem,
+# so it cannot clash with an application's own signatures.
+
+module Rails
+  def self.root: () -> Pathname
+  def self.application: () -> untyped
+
+  class Railtie
+    def self.rake_tasks: () { () -> void } -> void
+  end
+
+  module Generators
+    class Base
+      def self.desc: (String description) -> void
+      def destination_root: () -> String
+      def say_status: (Symbol status, String message, ?Symbol color) -> void
+      def append_to_file: (String path, String data) -> void
+      def create_file: (String path, String data) -> void
+    end
+  end
+end
+
+module ActiveSupport
+  class EncryptedFile
+    class MissingContentError < RuntimeError
+    end
+
+    class MissingKeyError < RuntimeError
+    end
+
+    def self.generate_key: () -> String
+    def initialize: (content_path: Pathname, key_path: Pathname, env_key: String, raise_if_missing_key: bool) -> void
+    def read: () -> String
+    def write: (String contents) -> void
+  end
+
+  class MessageEncryptor
+    class InvalidMessage < StandardError
+    end
+  end
+end
+
+# From the English library.
+$CHILD_STATUS: Process::Status?
