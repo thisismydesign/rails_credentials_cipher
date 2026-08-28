@@ -18,7 +18,16 @@ A gem that adds `credentials:decrypt` and `credentials:encrypt` rake tasks to Ra
 
 ## Development
 
-See: [dev-env](.claude/skills/dev-env/SKILL.md) for setup, test, lint, manual test and release.
+```sh
+mise install && bin/setup                 # Ruby from .tool-versions, then bundle install
+bundle exec rspec                         # tests; add a path or path:line for one file or example
+bundle exec rubocop -A                    # lint with auto-fix
+bundle exec bundler-audit check --update  # dependency audit
+```
+
+To try the tasks in a Rails application, point its Gemfile at this checkout — `gem "rails_credentials_cipher", path: "../rails_credentials_cipher", group: :development` — and run `bin/rails credentials:decrypt` there with its `config/master.key` present.
+
+Release: bump `lib/rails_credentials_cipher/version.rb`, `bundle install` so `Gemfile.lock` follows, commit, then `bundle exec rake release`.
 
 ## Architecture
 
