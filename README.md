@@ -40,6 +40,27 @@ bin/rails credentials:decrypt:production    # config/credentials/production.yml.
 bin/rails credentials:encrypt:production
 ```
 
+## Development
+
+```sh
+mise install && bin/setup     # Ruby from .tool-versions, then bundle install
+bundle exec rspec             # tests
+bundle exec rubocop -A        # lint with auto-fix
+bundle exec steep check       # types: lib/ against sig/
+```
+
+To try it in a Rails application, point its Gemfile at your checkout and run the tasks there:
+
+```rb
+gem "rails_credentials_cipher", path: "../rails_credentials_cipher", group: :development
+```
+
+To release, bump the version in `lib/rails_credentials_cipher/version.rb`, run `bundle install` so `Gemfile.lock` follows, commit, then:
+
+```sh
+bundle exec rake release      # tags v<version>, pushes the commits and the tag, pushes the gem to rubygems.org
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/thisismydesign/rails_credentials_cipher.
